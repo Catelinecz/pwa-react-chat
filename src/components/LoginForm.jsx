@@ -11,8 +11,9 @@ export default class LoginForm extends React.Component {
             error: ""
         };
 
-        this.handleChange = this.handleChange.bind(this)
-        this.handleSubmit = this.handleSubmit.bind(this)
+        this.handleChange = this.handleChange.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
+        this.verifyUserCallback = this.verifyUserCallback.bind(this);
     }
 
     render() {
@@ -20,7 +21,7 @@ export default class LoginForm extends React.Component {
             <div className="login">
                 <form className="login-form" onSubmit={this.handleSubmit}>
                     <label htmlFor="nickname">
-                        <h2>Please enter your nickname: </h2>
+                        <h1>Please enter your nickname: </h1>
                     </label>
                     <input type="text" ref={(input) => this.textInput = input} id="nickname" value={this.state.nickname} onChange={this.handleChange} placeholder="Enter your nickname and press ENTER"/>
                     <div className="error">{ this.state.error }</div>
@@ -30,9 +31,13 @@ export default class LoginForm extends React.Component {
     }
 
     handleSubmit(e) {
-        console.log("handled");
         e.preventDefault();
-        this.props.socket.emit(VERIFY_USER, this.state.nickname, this.verifyUserCallback);
+        if (this.state.nickname) {
+            this.props.socket.emit(VERIFY_USER, this.state.nickname, this.verifyUserCallback);
+        }
+        else {
+            this.handleError("Nickname must not be empty.");
+        }
     }
 
     handleChange(e) {
@@ -44,11 +49,11 @@ export default class LoginForm extends React.Component {
     }
 
     verifyUserCallback(user, nicknameExists) {
-        console.log(user, nicknameExists);
         if (nicknameExists) {
-            this.handleError("This nickname is already taken.")
+            this.handleError("This nickname is already taken.");
         }
         else {
+            this.handleError(null);
             this.props.connectUser(user);
         }
     }

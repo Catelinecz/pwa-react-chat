@@ -2,8 +2,9 @@ import React, { Component } from 'react';
 import socketClient from "socket.io-client";
 import { USER_CONNECTED, USER_DISCONNECTED } from "../Events";
 import LoginForm from "./LoginForm";
+import ChatLayout from "./ChatLayout";
 
-const socketUrl = "http://localhost:3231"
+const socketUrl = "http://localhost:3001"
 
 export default class MainLayout extends Component {
 
@@ -14,13 +15,21 @@ export default class MainLayout extends Component {
             socket: this.initConnection(),
             user: null
         }
+
+        this.connectUser = this.connectUser.bind(this);
+        this.disconnectUser = this.disconnectUser.bind(this);
     }
 
     render() {
         const { title } = this.props;
         return (
             <div className="container">
-                <LoginForm socket={this.state.socket} connectUser={this.connectUser}/>
+                {
+                    !this.state.user ?
+                        <LoginForm socket={this.state.socket} connectUser={this.connectUser}/>
+                        :
+                        <ChatLayout socket={this.state.socket} user={this.state.user}/>
+                }
             </div>
         );
     }
@@ -30,10 +39,6 @@ export default class MainLayout extends Component {
      */
     initConnection() {
         const socket = socketClient(socketUrl);
-        socket.on('connect', () => {
-            console.log("Connected");
-        });
-        console.log(socket);
         return socket;
     }
 

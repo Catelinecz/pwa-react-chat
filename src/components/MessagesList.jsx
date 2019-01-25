@@ -4,23 +4,33 @@ export default class MessagesList extends React.Component {
 
     constructor(props){
         super(props);
+
+        this.messageReceived = this.messageReceived.bind(this);
+    }
+
+    messageReceived() {
+        this.refs.container.scrollTop = this.refs.container.scrollHeight;
+    }
+
+    componentDidMount() {
+        this.messageReceived();
+    }
+
+    componentDidUpdate() {
+        this.messageReceived();
     }
 
     render() {
-        if (this.props.recipient) {
-            return (
-                <div className="message-list">
-                    <div className="join-room">
-                        &larr; Join a room!
-                    </div>
-                </div>
-            )
-        }
         return (
-            <div className="message-list">
-                {
-                    this.props.messages.map((message, index) => this.renderMessage(message))
-                }
+            <div className="thread-container" ref='container'>
+
+                    <div className="thread">
+                        {
+                            this.props.messages.map((message, index) => this.renderMessage(message))
+                        }
+                    </div>
+
+
             </div>
         )
     }
@@ -30,11 +40,15 @@ export default class MessagesList extends React.Component {
         const {sender, text, datetime} = message;
 
         return (
-            <div className="message">
-                <div className="message-username">{sender}</div>
-                <div className="message-text">{text}</div>
-                {/*<div className="message-datetime">{datetime}</div>*/}
-            </div>
+                    <div key={message.id}
+                         className={'message-container ' + (message.sender === this.props.user.nickname && 'right')}>
+                        <div className="data">
+                            <div className="message">{message.message}</div>
+                            <div className="time">{message.sender}</div>
+                            <div className="time">{datetime.toLocaleString()}</div>
+                        </div>
+
+                    </div>
         )
     }
 }

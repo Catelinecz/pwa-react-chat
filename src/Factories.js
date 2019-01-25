@@ -1,15 +1,16 @@
-const uuid = require('uuid/v5');
+const uuidv4 = require('uuid/v4');
 
 /**
  * Vytvori uzivatele
  * @param name
  * @returns {{nickname: string}}
  */
-const createUser = ({name = ""} = {})=>(
+const createUser = (nickname, socketId)=>(
     {
-        nickname: name
+        nickname: nickname,
+        socketId: socketId
     }
-);
+)
 
 /**
  * Vytvori zpravu
@@ -18,10 +19,10 @@ const createUser = ({name = ""} = {})=>(
  * @param recipient
  * @returns {{sender: string, recipient: string, message: string, datetime: Date}}
  */
-const createMessage = ({message = "", sender = "", recipient = ""} = { })=>(
+const createMessage = (message = "", sender = "")=>(
     {
+        id: uuidv4(),
         sender: sender,
-        recipient: recipient,
         message: message,
         datetime: new Date(Date.now())
     }
@@ -34,9 +35,9 @@ const createMessage = ({message = "", sender = "", recipient = ""} = { })=>(
  * @param title
  * @returns {{id: *, title: string, users: Array, messages: Array, typingUsers: Array}}
  */
-const createChat = ({messages = [], users = [], title = "Public"} = {})=>(
+const createChat = (messages = [], users = [], title = "Public")=>(
     {
-        id: uuid(),
+        id: uuidv4(),
         title: title,
         users: users,
         messages: messages,

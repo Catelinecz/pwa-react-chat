@@ -1,20 +1,11 @@
-var express = require('express');
-var app = express();
-var http = require('http');
-var server = http.createServer(app);
-var io = require('socket.io')(server);
-var port = process.env.PORT || 3000;
-
-//app.use(express.static(__dirname + '/public'));
+var app = require('http').createServer()
+var io = module.exports.io = require('socket.io')(app);
 
 const SocketManager = require('./SocketManager');
-
-app.get('/', function (req, res) {
-    res.render('src/index')
-})
+const PORT = process.env.PORT || 3001;
 
 io.on('connection', SocketManager);
 
-server.listen(port, () => {
-    console.log("Connected to port: " + port);
+app.listen(PORT, function(){
+    console.log('Connected to port:' + PORT);
 });

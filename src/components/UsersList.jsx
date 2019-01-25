@@ -7,40 +7,47 @@ export default class UsersList extends React.Component {
         super(props);
     }
 
-    handleItemClick = (e, {name}) => this.setState({activeItem: name});
-
     render() {
-        const orderedUsers = [...this.props.users].sort((a, b) => a.nickname > b.nickname);
         return (
-            <div className="rooms-list">
-                <ul>
-                    <h3>Active users:</h3>
-                    {orderedUsers.map(user => {
-                        const active = user.nickname === this.props.recipient ? 'active' : '';
-                        return (
-                            <li key={user.nickname} className={"room " + active}>
-                                <a
-                                    onClick={() => this.props.subscribeToUser(user.nickname)}
-                                    href="#">
-                                    # {user.nickname}
-                                </a>
-                            </li>
-                        )
-                    })}
-                </ul>
-            </div>
-        )
-    }
+            <div id="side-bar">
+                <div className="heading">
+                <h2>Active users:</h2>
+                </div>
+                <div className="users">
+                        {
+                            this.props.users.map((user) => {
+                                return (
+                                    <div className="user " key={user.nickname} onClick={() => this.props.privateMessage(user.nickname)}>
+                                        # {user.nickname}
+                                    </div>
+                                )
+                            })
+                        }
+                </div>
 
-    renderMessage(message) {
-
-        const {sender, text, datetime} = message;
-
-        return (
-            <div className="message">
-                <div className="message-username">{sender}</div>
-                <div className="message-text">{text}</div>
-                {/*<div className="message-datetime">{datetime}</div>*/}
+                <div className="heading">
+                <h2>Chats:</h2>
+                </div>
+                <div className="users">
+                        {
+                            this.props.chats.map((chat)=> {
+                                if (chat.title) {
+                                    const lastMessage = chat.messages[chat.messages.length - 1];
+                                    const username = chat.users.find((user) => {return user !== this.props.user.nickname}) || "Public";
+                                    const classNames = (this.props.active && this.props.active.id === chat.id) ? 'active' : '';
+                                    return (
+                                        <div key={chat.id} className={`user ${classNames}`} onClick={() => {this.props.setActive(chat)}}>
+                                            <div className="user-info">
+                                                <div className="name">{username}</div>
+                                                {lastMessage && <div className="last-message">{lastMessage.message}</div>}
+                                            </div>
+                                        </div>
+                                    )
+                                }
+                                return null;
+                            })
+                        }
+                </div>
             </div>
         )
     }
