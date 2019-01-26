@@ -389,6 +389,17 @@ input, textarea {
     outline: none
 }
 
+.login-form button {
+    box-sizing: border-box;
+    font-size: 1.25em;
+    text-align: center;
+    border: none;
+    color: #fff;
+    background: #3e3e3e;
+    transition: all .35s ease-out;
+    visibility: hidden;
+}
+
 .message-input .message-form .send {
     width: 20%;
     box-sizing: border-box;
