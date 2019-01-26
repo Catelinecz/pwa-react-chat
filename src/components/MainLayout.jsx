@@ -38,7 +38,7 @@ export default class MainLayout extends Component {
      * Pripoji socket klienta
      */
     initConnection() {
-        const socket = io();
+        const socket = io("https://pwa-chat-lebedova.herokuapp.com");
         return socket;
     }
 
