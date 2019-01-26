@@ -45,7 +45,7 @@ export default class MessagesList extends React.Component {
                         <div className="data">
                             <div className="message">{message.message}</div>
                             <div className="time">{message.sender}</div>
-                            <div className="time">{datetime.toLocaleString()}</div>
+                            <div className="time">{datetime}</div>
                         </div>
 
                     </div>

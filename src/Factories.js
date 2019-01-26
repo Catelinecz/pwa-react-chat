@@ -24,7 +24,11 @@ const createMessage = (message = "", sender = "")=>(
         id: uuidv4(),
         sender: sender,
         message: message,
-        datetime: new Date(Date.now())
+        datetime: new Date(Date.now()).toLocaleString(undefined, {day: 'numeric',
+            month: 'numeric',
+            year: 'numeric',
+            hour: '2-digit',
+            minute: '2-digit'})
     }
 );
 
@@ -44,15 +48,6 @@ const createChat = (messages = [], users = [], title = "Public")=>(
         typingUsers: []
     }
 );
-
-
-/*
-*	@param date {Date}
-*	@return a string represented in 24hr time i.e. '11:30', '19:30'
-*/
-const getTime = (date)=>{
-    return `${date.getHours()}:${("0"+date.getMinutes()).slice(-2)}`
-}
 
 module.exports = {
     createMessage,
