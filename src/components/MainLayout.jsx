@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
-import socketClient from "socket.io-client";
+import io from "socket.io-client";
 import { USER_CONNECTED, USER_DISCONNECTED } from "../Events";
 import LoginForm from "./LoginForm";
 import ChatLayout from "./ChatLayout";
 
-const socketUrl = "/";
+const socketUrl = "http://localhost:3231";
 
 export default class MainLayout extends Component {
 
@@ -38,7 +38,7 @@ export default class MainLayout extends Component {
      * Pripoji socket klienta
      */
     initConnection() {
-        const socket = socketClient(socketUrl);
+        const socket = io(socketUrl);
         return socket;
     }
 
