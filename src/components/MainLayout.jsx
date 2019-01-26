@@ -4,7 +4,7 @@ import { USER_CONNECTED, USER_DISCONNECTED } from "../Events";
 import LoginForm from "./LoginForm";
 import ChatLayout from "./ChatLayout";
 
-const socketUrl = "http://localhost:3231";
+const socketUrl = window.location.hostname;
 
 export default class MainLayout extends Component {
 
