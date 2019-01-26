@@ -4,7 +4,7 @@ import { USER_CONNECTED, USER_DISCONNECTED } from "../Events";
 import LoginForm from "./LoginForm";
 import ChatLayout from "./ChatLayout";
 
-const socketUrl = window.location.hostname;
+//const socketUrl = window.location.hostname;
 
 export default class MainLayout extends Component {
 
@@ -38,7 +38,7 @@ export default class MainLayout extends Component {
      * Pripoji socket klienta
      */
     initConnection() {
-        const socket = io(socketUrl);
+        const socket = io();
         return socket;
     }
 
