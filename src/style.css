@@ -1,4 +1,29 @@
 html, body, #root {
+    --users-back: #4D5061;
+    --active-user-back: #5C80BC;
+    --users-fore: #CDD1C4;
+    --active-user-fore: #000000;
+    --users-header-back: #30323D;
+    --users-header-fore: #E0BE45;
+    --chat-back: #30323D;
+    --chat-fore: #000000;
+    --message-left-back: #E0BE45;
+    --message-right-back: #5C80BC;
+    --message-left-fore: #000000;
+    --message-right-fore: #000000;
+    --send-disabled-back: #000000;
+    --send-back: #E0BE45;
+    --send-disabled-fore: #CDD1C4;
+    --send-fore: #FFFFFF;
+    --sender-fore: #CDD1C4;
+    --time-fore: #CDD1C4;
+    --login-back: #30323D;
+    --login-fore: #5C80BC;
+    --login-input-back: #30323D;
+    --login-input-fore: #CDD1C4;
+    --login-input-border: #5C80BC;
+    --login-input-border-active: #E0BE45;
+
     margin: 0;
     padding: 0;
     font-family: sans-serif;
@@ -11,6 +36,8 @@ input, textarea {
 
 .login {
     width: 100%;
+    background: var(--login-back);
+    color: var(--login-fore);
     height: 100%;
     display: flex;
     justify-content: center;
@@ -31,12 +58,18 @@ input, textarea {
     height: 20px;
     line-height: 20px;
     font-size: 20px;
-    border-bottom: solid 2px #b3b2ca;
+    background: var(--login-input-back);
+    color: var(--login-input-fore);
+    border-bottom: solid 2px var(--login-input-border);
     transition: all .23s ease-in
 }
 
+.login-form button {
+    visibility: hidden;
+}
+
 .login-form input:focus {
-    border-bottom: solid 2px #5d5d8a;
+    border-bottom: solid 2px var(--login-input-border-active);
     outline: none
 }
 
@@ -74,105 +107,42 @@ input, textarea {
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
-    background: #2e2e4f
-}
-
-#side-bar .search {
-    background: #3e3e5e;
-    box-sizing: border-box;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-    border-width: 1px 0;
-    border-style: solid;
-    border-color: black;
-    padding-left: 15px;
-    padding-right: 20px;
-    height: 10vh;
-    max-height: 65px
-}
-
-#side-bar .search .search-icon {
-    margin-right: 15px;
-    cursor: pointer
-}
-
-#side-bar .search input {
-    width: 100%;
-    background: #3e3e5e;
-    flex-grow: 1;
-    box-sizing: border-box;
-    border: none;
-    color: #cac8ee
-}
-
-#side-bar .search input:focus {
-    outline: none
-}
-
-#side-bar .search input::placeholder {
-    color: #cac8ee;
-    opacity: .6
-}
-
-#side-bar .search .plus {
-    display: inline-block;
-    position: relative;
-    cursor: pointer;
-    width: 13px;
-    height: 13px
-}
-
-#side-bar .search .plus::after, #side-bar .search .plus::before {
-    content: '';
-    position: absolute;
-    background: #b3b2ca
-}
-
-#side-bar .search .plus::after {
-    width: 16px;
-    height: 2px;
-    top: 5px
-}
-
-#side-bar .search .plus::before {
-    width: 2px;
-    height: 16px;
-    top: -2px;
-    left: 7px
+    background: var(--users-header-back);
+    color: var(--users-header-fore);
 }
 
 #side-bar .users {
     overflow-y: scroll;
-    background: #3e3e5e;
-    flex-grow: 1
+    background: var(--users-back);
+    flex-grow: 1;
+    color: var(--users-fore);
 }
 
 #side-bar .users::-webkit-scrollbar-track {
     -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
-    background-color: #cac8ee
+    background-color: var(--users-fore)
 }
 
 #side-bar .users::-webkit-scrollbar {
     width: 5px;
-    background-color: green
+    background-color: var(--active-user-back)
 }
 
 #side-bar .users::-webkit-scrollbar-thumb {
-    background-color: #484d79
+    background-color: var(--active-user-back);
 }
 
 #side-bar .users .user {
     align-items: center;
     display: flex;
-    height: 66px;
+    height: 25px;
     justify-content: flex-start;
     padding: 18px 16px
 }
 
 #side-bar .users .user.active, #side-bar .users .user:hover {
-    background: #2e2e4f
+    background: var(--active-user-back);
+    color: var(--active-user-fore);
 }
 
 #side-bar .users .user:hover:not(.active) {
@@ -195,6 +165,67 @@ input, textarea {
     align-items: center;
     justify-content: center
 }
+
+#side-bar .current-user {
+    align-items: center;
+    background: #484d79;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: row;
+    height: 10vh;
+    max-height: 65px;
+    justify-content: space-between;
+    padding-left: 16px;
+    padding-right: 16px
+}
+
+#side-bar .current-user .logout {
+    align-items: center;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    font-size: 2em
+}
+
+.chat-header {
+    background: #5d5d8a;
+    box-shadow: 0px 6px 5px -2px rgba(225, 225, 225, 0.7);
+    box-sizing: border-box;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 12vh;
+    max-height: 65px;
+    padding: 18px 16px
+}
+
+.chat-header .user-info {
+    align-items: center;
+    display: flex
+}
+
+.chat-header .user-info .user-name {
+    margin-right: 10px
+}
+
+.chat-header .user-info .status {
+    align-items: center;
+    display: flex
+}
+
+.chat-header .options {
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    justify-content: space-around;
+    height: 100%;
+    width: 15%
+}
+
+.chat-header .options svg {
+    cursor: pointer
+}
+
 .chat-room-container {
     height: 100%;
     width: 76.25%
@@ -233,16 +264,16 @@ input, textarea {
 
 .thread-container::-webkit-scrollbar-track {
     -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
-    background-color: #cac8ee
+    background-color: var(--users-fore);
 }
 
 .thread-container::-webkit-scrollbar {
     width: 5px;
-    background-color: green
+    background-color: var(--users-header-fore)
 }
 
 .thread-container::-webkit-scrollbar-thumb {
-    background-color: #484d79
+    background-color: var(--active-user-back)
 }
 
 .thread-container .thread {
@@ -252,8 +283,8 @@ input, textarea {
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
-    color: #b3b2ca;
-    background: #dcddf5
+    color: var(--chat-fore);
+    background: var(--chat-back);
 }
 
 .message-container {
@@ -265,7 +296,8 @@ input, textarea {
 }
 
 .message-container .time {
-    order: 1
+    order: 1;
+    color: var(--time-fore);
 }
 
 .message-container .data {
@@ -277,14 +309,16 @@ input, textarea {
 .message-container .name {
     font-size: .65em;
     margin-top: 5px;
-    text-align: right
+    text-align: right;
+    color: var(--sender-fore);
 }
 
 .message-container .message {
-    background: #fff;
-    border-radius: 0 5px 5px 5px;
+    background: var(--message-left-back);
+    border-radius: 5px;
+    border-top-left-radius: 0;
     box-sizing: border-box;
-    color: #b3b2ca;
+    color: var(--message-left-fore);
     height: 100%;
     padding: 10px 15px;
     position: relative
@@ -300,7 +334,7 @@ input, textarea {
 }
 
 .message-container .message::before {
-    border: 4px solid #fff;
+    border: 4px solid var(--message-left-back);
     border-bottom-color: transparent;
     border-left-color: transparent;
     content: '';
@@ -317,8 +351,7 @@ input, textarea {
 }
 
 .message-container.right .time {
-    order: 2;
-    margin-left: 25px
+    display: none
 }
 
 .message-container.right .data {
@@ -326,20 +359,16 @@ input, textarea {
     order: 1
 }
 
-.message-container.right .name {
-    display: none
-}
-
 .message-container.right .message {
-    background: #89a1fc;
-    color: #fff;
+    background: var(--message-right-back);
+    color: var(--message-right-fore);
     border-top-right-radius: 0;
     border-top-left-radius: 5px
 }
 
 .message-container.right .message::before {
-    border-top-color: #89a1fc;
-    border-left-color: #89a1fc;
+    border-top-color: var(--message-right-back);
+    border-left-color: var(--message-right-back);
     border-right-color: transparent;
     left: auto;
     right: -7px
@@ -389,17 +418,6 @@ input, textarea {
     outline: none
 }
 
-.login-form button {
-    box-sizing: border-box;
-    font-size: 1.25em;
-    text-align: center;
-    border: none;
-    color: #fff;
-    background: #3e3e3e;
-    transition: all .35s ease-out;
-    visibility: hidden;
-}
-
 .message-input .message-form .send {
     width: 20%;
     box-sizing: border-box;
@@ -407,12 +425,13 @@ input, textarea {
     text-align: center;
     border: none;
     height: 100%;
-    color: #fff;
-    background: #3e3e3e;
+    color: var(--send-fore);
+    background: var(--send-back);
     transition: all .35s ease-out
 }
 
 .message-input .message-form .send:disabled {
     opacity: .2;
-    background: #5d5d8a
+    background: var(--send-disabled-back);
+    color: var(--send-disabled-fore);
 }

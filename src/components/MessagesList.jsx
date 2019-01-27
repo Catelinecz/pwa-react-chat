@@ -43,9 +43,9 @@ export default class MessagesList extends React.Component {
                     <div key={message.id}
                          className={'message-container ' + (message.sender === this.props.user.nickname && 'right')}>
                         <div className="data">
-                            <div className="message">{message.message}</div>
                             <div className="time">{message.sender}</div>
-                            <div className="time">{datetime}</div>
+                            <div className="message">{message.message}</div>
+                            <div className="name">{datetime}</div>
                         </div>
 
                     </div>
