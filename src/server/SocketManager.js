@@ -7,7 +7,7 @@ let connectedUsers = [];
 const publicChat = createChat();
 
 function nicknameExists(nickname) {
-    return connectedUsers.some(user => user.nickname === nickname);
+    return connectedUsers.some(user => user.nickname === nickname) || nickname == "SYSTEM";
 }
 
 function removeUser(nickname) {
@@ -21,7 +21,6 @@ function getUser(nickname) {
 function addUser(user) {
     connectedUsers.push(user);
 }
-
 
 module.exports = function (socket) {
   console.log("CONNECTED: Socket Id = " + socket.id);
@@ -40,6 +39,7 @@ module.exports = function (socket) {
       addUser(user);
      socket.user = user;
      io.emit(Event.USER_CONNECTED, connectedUsers);
+     io.emit(Event.MESSAGE_RECEIVED+"-"+publicChat.id, createMessage(user.nickname + " has connected.", "SYSTEM"));
   });
 
   socket.on(Event.PUBLIC_CHAT, (callback) => callback(publicChat));
@@ -64,6 +64,7 @@ module.exports = function (socket) {
       if (!!socket.user) {
           removeUser(socket.user.nickname);
           io.emit(Event.USER_DISCONNECTED, connectedUsers);
+          io.emit(Event.MESSAGE_RECEIVED+"-"+publicChat.id, createMessage(socket.user.nickname + " has disconnected.", "SYSTEM"));
       }
   });
 };
