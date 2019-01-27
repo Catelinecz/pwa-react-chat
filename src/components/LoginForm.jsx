@@ -19,11 +19,11 @@ export default class LoginForm extends React.Component {
     render() {
         return (
             <div className="login">
-                <form className="login-form" onSubmit={this.handleSubmit}>
+                <form className="login-form" onSubmit={this.handleSubmit} autocomplete="off">
                     <label htmlFor="nickname">
-                        <h1>Please enter your nickname: </h1>
+                        <h1>Nickname:</h1>
                     </label>
-                    <input type="text" ref={(input) => this.textInput = input} id="nickname" value={this.state.nickname} onChange={this.handleChange} placeholder="Enter your nickname and press ENTER"/>
+                    <input autocomplete="off" type="text" ref={(input) => this.textInput = input} id="nickname" value={this.state.nickname} onChange={this.handleChange} placeholder="Please enter your nickname"/>
                     <button disabled={this.state.nickname.length < 1} className="send" type="submit">Log In</button>
                     <div className="error">{ this.state.error }</div>
                 </form>
