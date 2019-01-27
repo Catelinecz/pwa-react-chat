@@ -47,7 +47,12 @@ input, textarea {
 .login-form {
     display: flex;
     justify-content: center;
-    flex-direction: column
+    flex-direction: column;
+    width: 400px;
+}
+
+.login-form h1 {
+    text-align: center;
 }
 
 .login-form input {
@@ -58,6 +63,7 @@ input, textarea {
     height: 20px;
     line-height: 20px;
     font-size: 20px;
+    padding: 10px;
     background: var(--login-input-back);
     color: var(--login-input-fore);
     border-bottom: solid 2px var(--login-input-border);
